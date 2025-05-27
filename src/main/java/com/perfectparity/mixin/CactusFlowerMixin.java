@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.CactusBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -16,6 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 @Mixin(CactusBlock.class)  // ← replace with the actual class (e.g., CactusBlock.class)
 public abstract class CactusFlowerMixin extends Block {
 	// If you need to reference the AGE property:
+	@Final
 	@Shadow
 	public static IntegerProperty AGE;
 
@@ -50,7 +52,7 @@ public abstract class CactusFlowerMixin extends Block {
 				serverLevel.setBlockAndUpdate(blockPos2, this.defaultBlockState());
 				BlockState blockState2 = (BlockState)blockState.setValue(AGE, 0);
 				serverLevel.setBlock(blockPos, blockState2, 260);
-				serverLevel.neighborChanged(blockState2, blockPos2, this, null, false);
+				serverLevel.neighborChanged(blockState2, blockPos2, this, blockPos, false);
 			}
 
 			if (j < 15) {
