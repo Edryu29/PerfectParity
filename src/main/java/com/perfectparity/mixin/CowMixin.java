@@ -15,6 +15,7 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.biome.Biome;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -39,9 +40,9 @@ public abstract class CowMixin extends Animal implements VariantMob {
     @Overwrite
     @Nullable
     public Cow getBreedOffspring(ServerLevel serverLevel, AgeableMob ageableMob) {
-        Cow cow = (Cow)EntityType.COW.create(serverLevel);
+        Cow cow = EntityType.COW.create(serverLevel);
         if (cow != null && ageableMob instanceof Cow cow2) {
-            ((VariantMob) cow).setVariant(this.random.nextBoolean() ? this.getVariant() : ((VariantMob) cow2).getVariant());
+            ((VariantMob) cow).projectParity$setVariant(this.random.nextBoolean() ? this.projectParity$getVariant() : ((VariantMob) cow2).projectParity$getVariant());
         }
 
         return cow;
@@ -53,15 +54,16 @@ public abstract class CowMixin extends Animal implements VariantMob {
         builder.define(DATA_VARIANT_ID, "normal");
     }
 
-    public MobVariant getVariant() {
+    public MobVariant projectParity$getVariant() {
         return MobVariant.getById(this.getTypeVariant());
     }
 
+    @Unique
     private String getTypeVariant(){
         return this.entityData.get(DATA_VARIANT_ID);
     }
 
-    public void setVariant(MobVariant cowVariant) {
+    public void projectParity$setVariant(MobVariant cowVariant) {
         this.entityData.set(DATA_VARIANT_ID, cowVariant.getId());
     }
 
@@ -79,14 +81,14 @@ public abstract class CowMixin extends Animal implements VariantMob {
     }
 
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
+    public @NotNull SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData) {
 
-        if (mobSpawnType != MobSpawnType.BREEDING) {
+        if (mobSpawnType != MobSpawnType.BREEDING && this.getType() != EntityType.MOOSHROOM) {
             Holder<Biome> biomeHolder = serverLevelAccessor.getBiome(this.blockPosition());
             MobVariant variant = MobVariant.getFromBiome(biomeHolder);
-            this.setVariant(variant);
+            this.projectParity$setVariant(variant);
         }
-        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType,spawnGroupData);
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData);
     }
 }
 

@@ -63,7 +63,7 @@ public class CustomThrownEgg extends ThrowableItemProjectile {
                     Chicken chicken = EntityType.CHICKEN.create(this.level());
                     if (chicken != null) {
                         chicken.setAge(-24000);
-                        ((VariantMob) chicken).setVariant(MobVariant.getById(variant));
+                        ((VariantMob) chicken).projectParity$setVariant(MobVariant.getById(variant));
                         chicken.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                         if (!chicken.fudgePositionAfterSizeChange(EntityDimensions.fixed(0.0F, 0.0F))) {
                             break;

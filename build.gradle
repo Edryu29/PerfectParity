@@ -54,7 +54,10 @@ dependencies {
 
 	modImplementation "curse.maven:continuity-531351:5962881"
 	modLocalRuntime("curse.maven:continuity-531351:5962880")
-	
+
+	modImplementation "curse.maven:entity-model-features-844662:6001148"
+	modImplementation "curse.maven:entity-texture-features-fabric-568563:5982152"
+
 }
 
 processResources {

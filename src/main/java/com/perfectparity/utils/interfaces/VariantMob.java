@@ -4,7 +4,7 @@ import com.perfectparity.entity.utils.MobVariant;
 
 public interface VariantMob {
 
-    MobVariant getVariant();
+    MobVariant projectParity$getVariant();
 
-    void setVariant(MobVariant variant);
+    void projectParity$setVariant(MobVariant variant);
 }

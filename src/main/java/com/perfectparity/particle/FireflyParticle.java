@@ -7,6 +7,7 @@ import net.minecraft.client.particle.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
+import org.jetbrains.annotations.NotNull;
 
 @Environment(EnvType.CLIENT)
 public class FireflyParticle extends TextureSheetParticle {
@@ -22,12 +23,12 @@ public class FireflyParticle extends TextureSheetParticle {
         this.speedUpWhenYMotionIsBlocked = true;
         this.friction = 0.96F;
         this.quadSize *= 0.75F;
-        this.yd *= (double)0.8F;
-        this.xd *= (double)0.8F;
-        this.zd *= (double)0.8F;
+        this.yd *= 0.8F;
+        this.xd *= 0.8F;
+        this.zd *= 0.8F;
     }
 
-    public ParticleRenderType getRenderType() {
+    public @NotNull ParticleRenderType getRenderType() {
         return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
     }
 
@@ -71,10 +72,12 @@ public class FireflyParticle extends TextureSheetParticle {
         public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double d, double e, double f, double g, double h, double i) {
             FireflyParticle fireflyParticle = new FireflyParticle(clientLevel, d, e, f, (double)0.5F - clientLevel.random.nextDouble(), clientLevel.random.nextBoolean() ? h : -h, (double)0.5F - clientLevel.random.nextDouble());
             fireflyParticle.setLifetime(clientLevel.random.nextIntBetweenInclusive(36, 180));
-            fireflyParticle.scale(1.5F);
+            fireflyParticle.scale(0.1F);
             fireflyParticle.pickSprite(this.sprite);
             fireflyParticle.setAlpha(0.0F);
             return fireflyParticle;
         }
     }
+
+
 }

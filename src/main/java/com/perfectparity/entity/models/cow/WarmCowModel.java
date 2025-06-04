@@ -2,6 +2,7 @@ package com.perfectparity.entity.models.cow;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -9,8 +10,10 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.world.entity.Entity;
 
+import static com.perfectparity.entity.models.cow.ModCowModel.createBaseCowModel;
+
 @Environment(EnvType.CLIENT)
-public class WarmCowModel<T extends Entity> extends ModCowModel<T> {
+public class WarmCowModel<T extends Entity> extends CowModel<T> {
     public WarmCowModel(ModelPart modelPart) {
         super(modelPart);
     }

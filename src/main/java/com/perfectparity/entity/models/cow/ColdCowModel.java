@@ -2,13 +2,16 @@ package com.perfectparity.entity.models.cow;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.model.CowModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.world.entity.Entity;
 
+import static com.perfectparity.entity.models.cow.ModCowModel.createBaseCowModel;
+
 @Environment(EnvType.CLIENT)
-public class ColdCowModel<T extends Entity> extends ModCowModel<T> {
+public class ColdCowModel<T extends Entity> extends CowModel<T> {
     public ColdCowModel(ModelPart modelPart) {
         super(modelPart);
     }

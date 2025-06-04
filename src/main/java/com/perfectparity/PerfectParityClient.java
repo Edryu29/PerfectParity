@@ -3,10 +3,8 @@ package com.perfectparity;
 import com.perfectparity.entity.models.ModModelLayers;
 import com.perfectparity.entity.models.chicken.ColdChickenModel;
 import com.perfectparity.entity.models.cow.ColdCowModel;
-import com.perfectparity.entity.models.cow.ModCowModel;
 import com.perfectparity.entity.models.cow.WarmCowModel;
 import com.perfectparity.entity.models.pig.ColdPigModel;
-import com.perfectparity.entity.models.pig.ModPigModel;
 import com.perfectparity.particle.FireflyParticle;
 import com.perfectparity.particle.ModParticles;
 import com.perfectparity.utils.DryFoliageColor;
@@ -19,9 +17,14 @@ import net.fabricmc.fabric.api.client.particle.v1.ParticleFactoryRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
+import net.fabricmc.fabric.api.resource.ResourceManagerHelper;
+import net.fabricmc.fabric.api.resource.ResourcePackActivationType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.GrassColor;
 
 import javax.imageio.ImageIO;
@@ -35,6 +38,14 @@ public class PerfectParityClient implements ClientModInitializer {
 	public void onInitializeClient() {
 		registerColormap();
 		registerModelLayers();
+
+		FabricLoader.getInstance()
+				.getModContainer("perfectparity")
+				.ifPresent(modContainer -> {
+					ResourceLocation packId = ResourceLocation.fromNamespaceAndPath("perfectparity", "perfectparity_x_freshanimations");
+					ResourceManagerHelper.registerBuiltinResourcePack(packId, modContainer, Component.nullToEmpty("PerfectParity x FreshAnimations"), ResourcePackActivationType.NORMAL);
+				});
+
         // This entrypoint is suitable for setting up client-specific logic, such as rendering.
 		BlockRenderLayerMap.INSTANCE.putBlock(ModBlocks.BUSH, RenderType.cutout());
 		ColorProviderRegistry.BLOCK.register(
@@ -96,35 +107,23 @@ public class PerfectParityClient implements ClientModInitializer {
 				ModModelLayers.WARM_COW,
 				WarmCowModel::createBodyLayer
 		);
+
+
 		EntityModelLayerRegistry.registerModelLayer(
 				ModModelLayers.COLD_COW,
 				ColdCowModel::createBodyLayer
 		);
 
 		EntityModelLayerRegistry.registerModelLayer(
-				ModModelLayers.NEW_COW,
-				ModCowModel::createBodyLayer
-		);
-
-		EntityModelLayerRegistry.registerModelLayer(
 				ModModelLayers.COLD_CHICKEN,
 				ColdChickenModel::createBodyLayer
 		);
-		/*
-		EntityModelLayerRegistry.registerModelLayer(
-				ModModelLayers.COLD_CHICKEN_BABY,
-				ColdChickenModel::createBabyBodyLayer
-		);
-	*/
+
 		EntityModelLayerRegistry.registerModelLayer(
 				ModModelLayers.COLD_PIG,
 				ColdPigModel::createBodyLayer
 		);
 
-		EntityModelLayerRegistry.registerModelLayer(
-				ModModelLayers.NEW_PIG,
-				ModPigModel::createBodyLayer
-		);
 
 	}
 }
