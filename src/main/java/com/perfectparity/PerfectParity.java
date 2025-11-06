@@ -32,7 +32,7 @@ public class PerfectParity implements ModInitializer {
 
 		ModBlocks.initialize();
 		ModItems.initialize();
-		ModWorldGeneration.generateModWorldGen();
+		// ModWorldGeneration.generateModWorldGen();
 		ModSounds.registerSounds();
 		ModParticles.registerParticles();
 		ModCustomTrades.registerCustomTrades();

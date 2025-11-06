@@ -33,7 +33,7 @@ public class ModBlocks {
         // TEST_BLOCK = register("test_block", TestBlock::new, Properties.of().mapColor(MapColor.COLOR_LIGHT_GRAY).strength(-1.0F, 3600000.0F).noLootTable());
         // TEST_INSTANCE_BLOCK = register("test_instance_block", TestInstanceBlock::new, Properties.of().noOcclusion().strength(-1.0F, 3600000.0F).noLootTable().isViewBlocking(Blocks::never));
         WILDFLOWERS = register("wildflowers", new PinkPetalsBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).noCollission().sound(SoundType.PINK_PETALS).pushReaction(PushReaction.DESTROY)));
-        LEAF_LITTER = register("leaf_litter", new LeafLitterBlock(BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_BROWN).replaceable().noCollission().sound(ModSounds.LEAF_LITTER).pushReaction(PushReaction.DESTROY)));
+        LEAF_LITTER = register("leaf_litter", new LeafLitterBlock(BlockBehaviour.Properties.of().replaceable().noCollission().sound(ModSounds.LEAF_LITTER).pushReaction(PushReaction.DESTROY)));
         FIREFLY_BUSH = register("firefly_bush", new FireflyBushBlock(BlockBehaviour.Properties.of().mapColor(MapColor.PLANT).ignitedByLava().lightLevel((blockStatex) -> 2).noCollission().instabreak().sound(SoundType.SWEET_BERRY_BUSH).pushReaction(PushReaction.DESTROY)));
     }
 
