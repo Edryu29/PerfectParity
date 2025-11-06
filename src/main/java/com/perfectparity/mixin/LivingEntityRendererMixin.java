@@ -1,6 +1,7 @@
 package com.perfectparity.mixin;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.perfectparity.PerfectParity;
 import com.perfectparity.entity.models.ModModelLayers;
 import com.perfectparity.entity.utils.MobVariant;
 import com.perfectparity.utils.interfaces.VariantMob;
@@ -89,19 +90,19 @@ public class LivingEntityRendererMixin<T extends LivingEntity, M extends EntityM
 
     @Inject(method = "render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At("HEAD"))
     private void render(T livingEntity, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i, CallbackInfo ci) {
-        if (livingEntity instanceof Cow) {
+        if (livingEntity instanceof Cow && livingEntity.getName().toString().contains("cow")) {
             if (((VariantMob)livingEntity).projectParity$getVariant() != null) {
                 this.model = (M) (this.COW_VARIANT_MODELS.get(((VariantMob)livingEntity).projectParity$getVariant()));
             }
         }
 
-        if (livingEntity instanceof Pig) {
+        if (livingEntity instanceof Pig && livingEntity.getName().toString().contains("pig")) {
             if (((VariantMob)livingEntity).projectParity$getVariant() != null) {
                 this.model = (M) (this.PIG_VARIANT_MODELS.get(((VariantMob)livingEntity).projectParity$getVariant()));
             }
         }
 
-        if (livingEntity instanceof Chicken) {
+        if (livingEntity instanceof Chicken && livingEntity.getName().toString().contains("chicken")) {
             if (((VariantMob)livingEntity).projectParity$getVariant() != null) {
                 this.model = (M) (this.CHICKEN_VARIANT_MODELS.get(((VariantMob)livingEntity).projectParity$getVariant()));
             }
